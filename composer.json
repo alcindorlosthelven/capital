@@ -1,0 +1,29 @@
+{
+
+  "name": "los/sge",
+  "authors": [
+    {
+      "name": "alcindor losthelven",
+      "email": "alcindorlos@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "": ""
+    },
+    "psr-0": {
+      "": ""
+    }
+  },
+  "require": {
+    "phpmailer/phpmailer": "^6.1",
+    "ext-pdo": "*",
+    "ext-curl": "*",
+    "ext-json": "*",
+    "ixudra/curl": "6.*",
+    "ext-ctype": "*"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master"
+  }
+}
