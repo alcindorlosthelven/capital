@@ -349,7 +349,7 @@ class Utilisateur extends Model
                 return "pseudo existe";
             }
             $con=self::connection();
-            $req="insert into utilisateur(pseudo,email,role,nom,prenom,motdepasse,active,photo,telephone,id_succursal) value
+            $req="insert into utilisateur(pseudo,email,role,nom,prenom,motdepasse,active,photo,telephone,id_station) value
             (:pseudo,:email,:role,:nom,:prenom,:motdepasse,:active,:photo,:telephone,:id_succursal)";
 
             $stmt=$con->prepare($req);

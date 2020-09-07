@@ -82,33 +82,73 @@ $localisation = new GeoLocalisation();
         <!-- partial:partials/_sidebar.html -->
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
             <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="">
-                        <i class="mdi mdi-home menu-icon"></i>
-                        <span class="menu-title">Dashboard</span>
-                    </a>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="institution">
-                        <i class="mdi mdi-home menu-icon"></i>
-                        <span class="menu-title">Institution</span>
-                    </a>
-                </li>
+                <?php
+                if ($role === "agent") {
+                    $u=\systeme\Model\Utilisateur::Rechercher(\systeme\Model\Utilisateur::session_valeur());
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vente-<?= $u->id_station ?>">
+                            <i class="mdi mdi-home menu-icon"></i>
+                            <span class="menu-title">Ajouter Vente</span>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="client">
-                        <i class="mdi mdi-home menu-icon"></i>
-                        <span class="menu-title">Client</span>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="vente">
+                            <i class="mdi mdi-home menu-icon"></i>
+                            <span class="menu-title">Liste des Ventes</span>
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link" href="station">
-                        <i class="mdi mdi-home menu-icon"></i>
-                        <span class="menu-title">Station</span>
-                    </a>
-                </li>
+
+                    <?php
+                } else {
+                    ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">
+                            <i class="mdi mdi-home menu-icon"></i>
+                            <span class="menu-title">Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="institution">
+                            <i class="mdi mdi-home menu-icon"></i>
+                            <span class="menu-title">Institution</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="client">
+                            <i class="mdi mdi-home menu-icon"></i>
+                            <span class="menu-title">Client</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="station">
+                            <i class="mdi mdi-home menu-icon"></i>
+                            <span class="menu-title">Station</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="vente">
+                            <i class="mdi mdi-home menu-icon"></i>
+                            <span class="menu-title">Vente</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="utilisateur">
+                            <i class="mdi mdi-home menu-icon"></i>
+                            <span class="menu-title">Utilisateur</span>
+                        </a>
+                    </li>
+                    <?php
+                }
+                ?>
 
                 <!--  <li class="nav-item">
                       <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
@@ -316,6 +356,66 @@ $localisation = new GeoLocalisation();
                         $(".message").html("<div class='alert alert-success'>Fait avec success</div>");
                         alert('Fait avec success');
                         document.location.href = 'lister-station';
+                    } else {
+                        $(".message").html("<div class='alert alert-success'>" + reponse + "</div>");
+                    }
+                    $('#load').hide();
+                }
+            });
+
+        });
+
+        $(".form_passer_carte").on("submit", function (e) {
+            e.preventDefault();
+            $('#load').show();
+            $.ajax({
+                type: 'POST',
+                url: "app/DefaultApp/traitements/station.php",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                beforeSend: function () {
+                    $(".message").html("<div class='alert alert-info'>Patienter un instant.........</div>")
+                },
+                success: function (reponse) {
+                    $(".form_passer_carte").closest('form').find("input[type=text], textarea").val("");
+                    let mes = JSON.parse(reponse);
+                    let statut = mes.statut;
+                    if (statut === "ok") {
+                        $(".message").html("");
+                        let id_compte = mes.id_compte;
+                        $(".id_compte").val(id_compte);
+                        $('#mvente').modal('show');
+                    } else {
+                        let message = $mes.message;
+                        $(".message").html(message);
+                    }
+                    $('#load').hide();
+                }
+            });
+
+        });
+
+        $(".form-vente").on("submit", function (e) {
+            e.preventDefault();
+            $('#load').show();
+            $.ajax({
+                type: 'POST',
+                url: "app/DefaultApp/traitements/station.php",
+                data: new FormData(this),
+                contentType: false,
+                cache: false,
+                processData: false,
+                beforeSend: function () {
+                    $(".message").html("<div class='alert alert-info'>Patienter un instant.........</div>")
+                },
+
+                success: function (reponse) {
+                    if (reponse.trim() === "ok") {
+                        $(".message").html("<div class='alert alert-success'>Fait avec success</div>");
+                        alert('Fait avec success');
+                        location.reload(true);
                     } else {
                         $(".message").html("<div class='alert alert-success'>" + reponse + "</div>");
                     }

@@ -6,7 +6,6 @@ App::get("/logout", function (){
     App::redirection("connexion");
 }, "logout");
 
-
 App::get("/", "login.login");
 App::post("/", "login.login");
 
@@ -43,3 +42,19 @@ App::get("/supprimer-station-:id", "station.supprimer","supprimer_station")->ave
 App::get("/profil-station-:id", "station.profil","profil_station")->avec("id","[0-9]+");
 App::get("/vente-:id", "station.vente","vente_station")->avec("id","[0-9]+");
 //fin station
+
+//vente
+App::get("/vente", "vente.lister","lister_vente");
+//fin vente
+
+//utilisateur
+App::get("/utilisateur", "utilisateur.lister", "utilisateur");
+App::get("/ajouter-utilisateur", "utilisateur.ajouter", "ajouter_utilisateur");
+App::post("/ajouter-utilisateur", "utilisateur.ajouter", "ajouter_utilisateur");
+App::get("/lister-utilisateur", "utilisateur.lister", "lister_utilisateur");
+App::get("/blocker-utilisateur-:id", "utilisateur.blocker", "blocker_utilisateur")->avec("id", "['0-9']+");
+App::get("/deblocker-utilisateur-:id", "utilisateur.deblocker", "deblocker_utilisateur")->avec("id", "['0-9']+");
+App::get("/supprimer-utilisateur-:id", "utilisateur.supprimer", "supprimer_utilisateur")->avec("id", "['0-9']+");
+App::get("/modifier-utilisateur-:id", "utilisateur.modifier", "modifier_utilisateur")->avec("id", "['0-9']+");
+App::post("/modifier-utilisateur-:id", "utilisateur.modifier")->avec("id", "['0-9']+");
+//fin utilisateur

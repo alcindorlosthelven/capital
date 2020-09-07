@@ -29,6 +29,8 @@ class UtilisateurControlleur extends BaseControlleur
                 $utlisateur->setEmail(trim(addslashes($_POST['email'])));
                 $motdepasse = $_POST['motdepasse'];
                 $confirmer = $_POST['confirmermotdepasse'];
+                $id_station=$_POST['id_station'];
+                $utlisateur->setIdSuccursal($id_station);
 
                 if ($motdepasse != $confirmer) {
                     $variable['erreur'] = "Verifier les mot de passe";

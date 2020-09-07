@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <?= \systeme\Application\Application::block("menu_utilisateur") ?>
         <?php
-        $suc = new \app\DefaultApp\Models\Succursal();
+        $suc = new \app\DefaultApp\Models\Station();
         $listeSuc = $suc->findAll();
         ?>
         <div class="card">
@@ -63,15 +63,27 @@
                                     </option>
 
                                     <option value="agent">
-                                        Agent
-                                    </option>
-
-                                    <option value="reparateur">
-                                        Réparateur
+                                        Agent Station
                                     </option>
 
                                 </select>
-                                <hr>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="company">Station</label>
+                                <select name="id_station" class="form-control role" style="height: 40px;">
+
+                                    <?php
+                                    if (isset($listeSuc)) {
+                                        foreach ($listeSuc as $st) {
+                                            ?>
+                                            <option value="<?= $st->getId() ?>"><?= $st->getNom() ?></option>
+                                            <?php
+                                        }
+                                    }
+                                    ?>
+                                    <option value="n/a">N/A</option>
+                                </select>
                             </div>
                         </div>
 

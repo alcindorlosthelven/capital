@@ -17,29 +17,6 @@ class Utilisateur extends user
         return $total->rowCount();
     }
 
-    public static function listeAgent(){
-        $con=self::connection();
-        $req="select *from utilisateur where role='agent'";
-        $stmt=$con->prepare($req);
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_CLASS,__CLASS__);
-    }
-
-    public static function listeReparateur(){
-        $con=self::connection();
-        $req="select *from utilisateur where role='reparateur'";
-        $stmt=$con->prepare($req);
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_CLASS,__CLASS__);
-    }
-
-    public static function listeAdmin(){
-        $con=self::connection();
-        $req="select *from utilisateur where role='administrateur'";
-        $stmt=$con->prepare($req);
-        $stmt->execute();
-        return $stmt->fetchAll(\PDO::FETCH_CLASS,__CLASS__);
-    }
 
     public function update(){
         $con=self::connection();

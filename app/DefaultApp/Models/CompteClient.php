@@ -141,7 +141,7 @@ class CompteClient extends Model
 
     public function retrait($id_client,$montant){
         $montantActuel=self::getMontant($id_client);
-        $montantActuel+=$montant;
+        $montantActuel-=$montant;
         if($montantActuel<0){
             return "Fonds insufisant";
         }
@@ -155,6 +155,22 @@ class CompteClient extends Model
             return "ok";
         }else{
             return "no";
+        }
+    }
+
+    public static function rechercherParNumero($numero)
+    {
+        $con = self::connection();
+        $req = "SELECT *FROM compte_client WHERE no=:no";
+        $stmt = $con->prepare($req);
+        $stmt->execute(array(
+            ":no" => $numero
+        ));
+        $res = $stmt->fetchAll(\PDO::FETCH_CLASS, __CLASS__);
+        if (count($res) > 0) {
+            return $res[0];
+        } else {
+            return null;
         }
     }
 
