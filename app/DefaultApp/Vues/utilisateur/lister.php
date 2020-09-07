@@ -19,7 +19,7 @@
                         <th>Pseudo</th>
                         <th>Role</th>
                         <th>Active</th>
-                        <th></th>
+                       <!-- <th></th>-->
                         <th></th>
                     </tr>
                     </thead>
@@ -37,9 +37,6 @@
                                     <td><?= $utilisateur->getPseudo(); ?></td>
                                     <td><?= $utilisateur->getRole(); ?></td>
                                     <td><?= $utilisateur->getActive(); ?></td>
-                                    <td>
-                                        <a href="modifier-utilisateur-<?= $utilisateur->getId() ?>">Modifier</a>
-                                    </td>
 
                                     <?php
 

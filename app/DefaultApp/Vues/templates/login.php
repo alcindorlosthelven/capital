@@ -57,7 +57,7 @@ use app\DefaultApp\DefaultApp as app;
                     $(".message").html("<div class='alert alert-info'>Patienter un instant.........</div>")
                 },
                 success: function (reponse) {
-                    $(".message").html(reponse);
+                   // $(".message").html(reponse);
                     var data=$.parseJSON(reponse);
                     if(data.message==="ok"){
                         //$(".message").html("<div class='alert alert-info' style='text-align: center'>Success</div>");
